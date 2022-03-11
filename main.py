@@ -24,21 +24,37 @@ def mapChecker(data, length):
     map = data[1:]
     regexString = '\d+\s' * length
     regexString = regexString[:-2]
-    print("-->", regexString)
     for item in map:
         if re.search(regexString, item) is None:
-            print("item :", item)
-            return False
-    return True
+            return False, None
+    return True, map
 
 with open(arv) as file:
     string = file.read()
     data = string.split("\n")
     cleanData = clearComments(data)
     length = int(cleanData[0])
-    if mapChecker(cleanData, length) is False:
+    result = mapChecker(cleanData, length)
+    if result[0] is False:
         print("the map you introduced is invalid")
+    else:
+        map = result[1]
 
+def checkMapIsValid(map, length):
+    values = list(range(0, length * length))
+    allItems = []
+    spliteLine = []
+    for item in map:
+        spliteLine = item.split(' ')
+        for each in spliteLine:
+            allItems.append(int(each))
+    # for number in values:
+    #     if number not in allItems:
+    #         print("dkllsgl")
+    allItems.sort()
+    if (allItems == values):
+        print(values)
+            
 
-print(data)
-print(cleanData)
+checkMapIsValid(map, length)
+print(map, length)

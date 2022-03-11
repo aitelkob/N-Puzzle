@@ -24,5 +24,20 @@ with open(arv) as file:
     # take length of map 
     # map = data
 
+def checkMapIsValid(map, length):
+    values = list(range(0, length * length))
+    allItems = []
+    spliteLine = []
+    for item in map:
+        spliteLine = item.split(' ')
+        for each in spliteLine:
+            allItems.append(int(each))
+    # for number in values:
+    #     if number not in allItems:
+    #         print("dkllsgl")
+    allItems.sort()
+    if (allItems == values):
+        print(values)
+            
 # print("this is length of the puzzle  = ",length)
 # print(str_regex)
