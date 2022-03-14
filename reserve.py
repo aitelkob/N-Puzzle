@@ -39,5 +39,3 @@ def checkMapIsValid(map, length):
     if (allItems == values):
         print(values)
             
-# print("this is length of the puzzle  = ",length)
-# print(str_regex)

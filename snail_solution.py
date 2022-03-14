@@ -4,9 +4,9 @@ LEFT = 2
 UP = 3
 NB_DRIECTIONS = 4
 
-def next_direction(direaction):
+def next_direction(direction):
     return (direction +1) % NB_DRIECTIONS
-def update_postion(position,direction):
+def update_position(position,direction):
     x,y = position
     if direction == RIGHT:
         return x+1,y
@@ -24,17 +24,34 @@ def set_as_visited(arr, position):
     arr[x][y] = '*'
 def is_visoted(arr, position):
     return get_value(arr,position) == '*'
+def snail_arr(array):
+    # compute the array size
+    array_size = len(array) * len(array[0])
 
-def snail_arr(arr):
-    # get size of arr 
-    arr_len = len(arr) * 2
-    arr_len2  = len(arr) * len(arr[0])
-    print(arr_len,arr_len2)
-    array = [['*' for _ in range(len(arr[0]) + 2)]] + [
-        ['*'] + arr[i] + ['*']
-        for i in range(len(arr))
-    ] + [['*' for _ in range(len(arr[0]) + 2)]]
+    # surround the array of '*'
+    array = [['*' for _ in range(len(array[0]) + 2)]] + [
+        ['*'] + array[i] + ['*']
+        for i in range(len(array))
+    ] + [['*' for _ in range(len(array[0]) + 2)]]
 
+    # initialize position and direction
+    position = 1, 1
+    direction = RIGHT
+
+    result = [get_value(array, position)]
+    set_as_visited(array, position)
+    nb_visited = 1
+
+    while nb_visited < array_size:
+        new_position = update_position(position, direction)
+        if not is_visoted(array, new_position):
+            result += [get_value(array, new_position)]
+            set_as_visited(array, new_position)
+            position = new_position
+            nb_visited += 1
+        else:
+            direction = next_direction(direction)
+    return result
 
 array = [
     [1, 2, 3, 4],
@@ -42,5 +59,6 @@ array = [
     [9, 10, 11, 12],
     [13, 14, 15, 16]
 ]
-snail_arr(array)
+print(array)
+print(snail_arr(array))
 
