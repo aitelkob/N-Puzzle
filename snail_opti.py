@@ -1,4 +1,7 @@
+def convert_1d_to_2d(l, cols):
+    return [l[i:i + cols] for i in range(0, len(l), cols)]
 def snail(map2d):
+    length = len(map2d)
     lst = []
     while len(map2d) != 0:
         lst.extend(map2d[0])
@@ -14,13 +17,6 @@ def snail(map2d):
             for i in map2d:
                 list2.append(i.pop(0))
             lst.extend(reversed(list2))
+    lst = convert_1d_to_2d(lst,length)
     return lst
-array2 = [[1,2,3],
-         [4,5,6],
-         [7,8,9]]
-array = [
-    [1, 2, 3, 4],
-    [5, 6, 7, 8],
-    [9, 10, 11, 12],
-    [13, 14, 15, 16]]
-print("result",snail(array))
+
