@@ -1,6 +1,3 @@
-from turtle import goto
-
-
 def solve_or_nop(arr):
     arr = [j for sub in arr for j in sub]
     cpt = 0
@@ -15,9 +12,23 @@ def solve_or_nop(arr):
     else:
         print(cpt)
         return "nop"
+#### outman way but better 
+def trash_improved(arr,solved,size):
+    res = 0
+    cpt = 0
+    for i in range(size ):
+        for j in range(size):
+            var1 = arr[i][j]
+            var2 = solved[j][j]
+            print(var1,var2)
+            if  solved.index(var1) > solved.index(var2):
+                cpt+=1
+    return cpt
 
 ###### test how many inversion in map 
 arr = [[8, 1, 2],[4, 0, 3],[6, 7, 5]]
 goal_puzzle = [[1,2,3],[8,0 , 4],[7, 6, 5]]
 puzzle = [[8, 1, 2],[-1, 4, 3],[7, 6, 5]]
 print(solve_or_nop(arr))
+print(len(arr[0]))
+print(trash_improved(arr,goal_puzzle, 3 ))
