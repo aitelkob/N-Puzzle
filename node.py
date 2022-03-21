@@ -9,8 +9,17 @@ class Node:
     def get_copy(self, mapp):
         tmp = [row[:] for row in mapp]
         return tmp
+    # generate child node from 
     def get_child(self):
-        
+        x,y = self.get_empty(self.data,0)
+        moves = [[x,y-1],[x,y+1],[x-1,y],[x+1,y]]
+        node_chil = []
+        for move in moves:
+            weliyed = self.move_blank(self.data,x,y,move[0],move[1])
+            if weliyed is not None:
+                weld_node = Node(weliyed,self.level+1)
+                node_chil.append(weld_node)
+        return node_chil
     # i need function to move the empty space in logic path
     def move_blank(self,mapp,xi,yi,xj,yj):
         if xj >= 0 and xj< len(self.data) and yj >= 0 and yj <= len(self.data):
@@ -69,14 +78,17 @@ class Puzzle:
         moves = [[x,y-1],[x,y+1],[x-1,y],[x+1,y]]
         while True:
             tmp = self.open_lst[0]
-            pprint(vars(tmp))
-            exit()
+            for each in tmp.get_child():
+                each.f_sco = self.f_score(each,goal)
+                self.open_lst.append(each)
+                pprint(vars(each))
+            self.close_lst.append(tmp)
             # check all possible direction
-            for move in moves:
+            """for move in moves:
                 weliyed = star.move_blank(star.data,x,y,move[0],move[1])
                 if weliyed is not None:
                     weld_node = Node(weliyed,level+1)
-                    pprint(weld_node)
+                    pprint(weld_node)"""
 
 start = [[1,2,3], [8,0,4], [7,6,5]]
 puz = Puzzle(3)
