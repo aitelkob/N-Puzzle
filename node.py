@@ -1,5 +1,6 @@
 from snail_opti import snail
 from pprint import pprint
+
 class Node:
     def __init__(self,data,level=0,f_sco=0):
         self.data = data
@@ -9,18 +10,17 @@ class Node:
         tmp = [row[:] for row in mapp]
         return tmp
     def get_child(self):
-        pass
+        
     # i need function to move the empty space in logic path
     def move_blank(self,mapp,xi,yi,xj,yj):
-        if xj > 0 and xj< len(self.data) and yj >= 0 and yj <= len(self.data):
-            tmp = []
-            tmp = self.get_copy(mapp)
-            tmp2 = tmp[xj][yj]
-            pprint(tmp2)
-            exit()
-            tmp[xj][yj] = tmp2[xi][yi]
-            tmp[xi][yi] = tmp2
-            return tmp
+        if xj >= 0 and xj< len(self.data) and yj >= 0 and yj <= len(self.data):
+            temp1 = []
+            temp1 = self.get_copy(mapp)
+            temp2 = temp1[xj][yj]
+            print(temp2)
+            temp1[xj][yj] = temp1[xi][yi]
+            temp1[xi][yi] = temp2
+            return temp1
         else:
             return None
     def get_empty(self,mapp,x):
@@ -44,8 +44,8 @@ class Puzzle:
         tmp = 0
         for i in range(0,self.n):
              for j in range(0,self.n):
-                 #if start[i][j] != goal[i][j] and start[i][j] != '_':
-                     print("this is i = {} and j = {} == {} ".format(i,j,start[i][j]))
+                 if start[i][j] != goal[i][j] and start[i][j] != 0:
+                     tmp+=1
         return tmp
 
 
@@ -59,8 +59,6 @@ class Puzzle:
         start = [[1,2,3], [8,0,4], [7,6,5]]
         copy = [[1,2,3], [8,0,4], [7,6,5]]
         goal = snail(copy)
-        print(start)
-        print(goal)
         star = Node(start,0,0)
         pprint(vars(star))
         star.f_sco = self.f_score(star,goal)
@@ -69,12 +67,16 @@ class Puzzle:
         #tmp = star.get_copy(star.data)
         x,y = star.get_empty(star.data,0)
         moves = [[x,y-1],[x,y+1],[x-1,y],[x+1,y]]
-        for move in moves:
-            weliyed = star.move_blank(star.data,x,y,move[0],move[1])
-            if weliyed is not None:
-                pprint(weliyed)
-        #while True:
-          #  tmp = self.open_lst[0]
+        while True:
+            tmp = self.open_lst[0]
+            pprint(vars(tmp))
+            exit()
+            # check all possible direction
+            for move in moves:
+                weliyed = star.move_blank(star.data,x,y,move[0],move[1])
+                if weliyed is not None:
+                    weld_node = Node(weliyed,level+1)
+                    pprint(weld_node)
 
 start = [[1,2,3], [8,0,4], [7,6,5]]
 puz = Puzzle(3)
