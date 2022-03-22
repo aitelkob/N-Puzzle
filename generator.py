@@ -1,4 +1,4 @@
-def createPuzzle(size):
+def Puzzle_goal(size):
     puzzle = []
     for number in range(0, size):
         puzzle.append([0] * size)
@@ -43,3 +43,4 @@ def createPuzzle(size):
                 puzzle[i][j] = 0
             j += 1
         i += 1
+    return puzzle
