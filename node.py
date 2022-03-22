@@ -1,3 +1,4 @@
+from telnetlib import TM
 from generator import Puzzle_goal
 from pprint import pprint
 
@@ -23,14 +24,15 @@ class Node:
     # i need function to move the empty space in logic path
     def move_blank(self,mapp,xi,yi,xj,yj):
         if xj >= 0 and xj< len(self.data) and yj >= 0 and yj <= len(self.data):
-            temp_puz = []
-            temp_puz = self.get_empty(mapp,0)
-            print(mapp)
+            temp1 = []
+            temp1 = self.get_copy(mapp)
+            print(temp1[xj][yj])
             exit()
-            temp = temp_puz[xj][yj]
-            temp_puz[xj][yj] = temp_puz[xi][yi]
-            temp_puz[xi][yi] = temp
-            return temp_puz
+            temp2 = temp1[xj][yj]
+            
+            temp1[xj][yj] = temp1[xi][yi]
+            temp1[xi][yi] = temp2
+            return temp1
         else:
             return None
 
