@@ -1,4 +1,4 @@
-from snail_opti import snail
+from generator import Puzzle_goal
 from pprint import pprint
 
 class Node:
@@ -23,15 +23,17 @@ class Node:
     # i need function to move the empty space in logic path
     def move_blank(self,mapp,xi,yi,xj,yj):
         if xj >= 0 and xj< len(self.data) and yj >= 0 and yj <= len(self.data):
-            temp1 = []
-            temp1 = self.get_copy(mapp)
-            temp2 = temp1[xj][yj]
-            print(temp2)
-            temp1[xj][yj] = temp1[xi][yi]
-            temp1[xi][yi] = temp2
-            return temp1
+            temp_puz = []
+            temp_puz = self.get_empty(mapp,0)
+            print(mapp)
+            exit()
+            temp = temp_puz[xj][yj]
+            temp_puz[xj][yj] = temp_puz[xi][yi]
+            temp_puz[xi][yi] = temp
+            return temp_puz
         else:
             return None
+
     def get_empty(self,mapp,x):
         for i in range(0,len(self.data)):
             for j in range(0,len(self.data)):
@@ -65,11 +67,10 @@ class Puzzle:
                #to get to the current node.
         return self.h_score(start.data,goal) + start.level
     def solver(self):
-        start = [[1,2,3], [8,0,4], [7,6,5]]
+        start = [[1,2,3], [4,5,6], [7,8,0]]
         copy = [[1,2,3], [8,0,4], [7,6,5]]
-        goal = snail(copy)
+        goal = Puzzle_goal(len(start))
         star = Node(start,0,0)
-        pprint(vars(star))
         star.f_sco = self.f_score(star,goal)
         self.open_lst.append(star)
         testing = [[1,2,3], [8,0,4], [7,6,5]]
