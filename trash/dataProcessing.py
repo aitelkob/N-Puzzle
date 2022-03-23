@@ -1,5 +1,6 @@
 import sys
 import argparse
+import re
 from mapChecker import getData
 from is_solvable import solve_or_nop
 
@@ -26,6 +27,11 @@ if __name__ == "__main__":
             data.append(True)
         else:
             data.append(False)
+        map = []
+        for item in data[1]:
+            map.append([int(x) for x in re.findall('\d+', item)])
+        data[1] = map
 
     #here i changed some things to fit well the list is [map, size, distance, solvable]
+    print(data)
     
